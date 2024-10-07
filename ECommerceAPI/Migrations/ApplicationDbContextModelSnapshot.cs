@@ -42,7 +42,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Brand");
+                    b.ToTable("Brand", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Cart", b =>
@@ -57,7 +57,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart");
+                    b.ToTable("Cart", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.CartProducts", b =>
@@ -78,7 +78,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartProducts");
+                    b.ToTable("CartProducts", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Category", b =>
@@ -101,7 +101,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Category");
+                    b.ToTable("Category", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.CreditCard", b =>
@@ -119,7 +119,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CreditCards");
+                    b.ToTable("CreditCards", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Order", b =>
@@ -141,7 +141,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Order", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.OrderProducts", b =>
@@ -159,7 +159,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProducts");
+                    b.ToTable("OrderProducts", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Product", b =>
@@ -196,7 +196,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Role", b =>
@@ -212,7 +212,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.User", b =>
@@ -241,7 +241,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
@@ -260,7 +260,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserRoles", (string)null);
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Admin", b =>

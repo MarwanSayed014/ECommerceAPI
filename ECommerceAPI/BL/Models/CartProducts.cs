@@ -6,7 +6,9 @@ namespace ECommerceAPI.BL.Models
 {
     public class CartProducts : IEntity
     {
+        [Key]
         public Guid CartId { get; set; }
+        [Key]
         public Guid ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }

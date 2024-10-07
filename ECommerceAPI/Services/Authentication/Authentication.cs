@@ -6,6 +6,7 @@ using ECommerceAPI.BL.Interfaces;
 using ECommerceAPI.Helpers.Interfaces;
 using ECommerceAPI.Helpers;
 using ECommerceAPI.BL.Types;
+using static ECommerceAPI.BL.Interfaces.IUserRepo;
 
 namespace ECommerceAPI.Services.Authentication
 {
@@ -14,18 +15,22 @@ namespace ECommerceAPI.Services.Authentication
         public IUserRepo _userRepo { get; }
         public IRoleRepo _roleRepo { get; }
         public IUserRoleRepo _userRoleRepo { get; }
+        public ICartRepo _cartRepo { get; }
         public IPasswordManager _passwordManager { get; }
         public JWTHelper _jWTHelper { get; }
+        public UserEventHandler _userEventHandler { get; }
 
         public Authentication(IUserRepo userRepo, IRoleRepo roleRepo,
-            IUserRoleRepo userRoleRepo, IPasswordManager passwordManager,
-            JWTHelper jWTHelper)
+            IUserRoleRepo userRoleRepo, ICartRepo cartRepo, IPasswordManager passwordManager,
+            JWTHelper jWTHelper, UserEventHandler userEventHandler)
         {
             _userRepo = userRepo;
             _roleRepo = roleRepo;
             _userRoleRepo = userRoleRepo;
-            _passwordManager= passwordManager;
+            _cartRepo = cartRepo;
+            _passwordManager = passwordManager;
             _jWTHelper = jWTHelper;
+            _userEventHandler = userEventHandler;
         }
 
         
@@ -63,16 +68,11 @@ namespace ECommerceAPI.Services.Authentication
                         Gender= model.Gender,
                         Name = model.UserName
                     };
-                    if(await _userRepo.CreateAsync(user))
+                    _userRepo.UserCreated += _userEventHandler.AddUserToUserRole;
+                    _userRepo.UserCreated += _userEventHandler.CreateUserCart;
+                    if (await _userRepo.CreateAsync(user))
                     {
-                        var userRole = new UserRole
-                        {
-                            RoleId = (Guid)((await _roleRepo.GetRoleAsync(RoleTypes.User))?.Id),
-                            UserId = user.Id
-                        };
-                        await _userRoleRepo.CreateAsync(userRole);
                         return RegistrationMassages.Succeeded;
-
                     }
                     else
                         return RegistrationMassages.Failed;
@@ -86,6 +86,7 @@ namespace ECommerceAPI.Services.Authentication
                 throw ex;
             }
         }
+
 
         private async Task<RegistrationMassages> IsRegisterModelValidAsync(RegisterViewModel model)
         {

@@ -53,13 +53,19 @@ namespace ECommerceAPI
                     new UserRepo(new DesignTimeDbContextFactory()),
                     new RoleRepo(new DesignTimeDbContextFactory()),
                     new UserRoleRepo(new DesignTimeDbContextFactory()),
+                    new CartRepo(new DesignTimeDbContextFactory()),
                     new PasswordManager(),
-                    new JWTHelper(jwtOptions)
+                    new JWTHelper(jwtOptions),
+                    new UserEventHandler(new RoleRepo(new DesignTimeDbContextFactory()),
+                    new UserRoleRepo(new DesignTimeDbContextFactory()),
+                    new CartRepo(new DesignTimeDbContextFactory()))
                 )
             );
             builder.Services.AddScoped<ICategoryRepo, CategoryRepo>(x => new CategoryRepo(new DesignTimeDbContextFactory()));
             builder.Services.AddScoped<IBrandRepo, BrandRepo>(x => new BrandRepo(new DesignTimeDbContextFactory()));
             builder.Services.AddScoped<IProductRepo, ProductRepo>(x => new ProductRepo(new DesignTimeDbContextFactory()));
+            builder.Services.AddScoped<ICartProductsRepo, CartProductsRepo>(x => new CartProductsRepo(new DesignTimeDbContextFactory()));
+            builder.Services.AddScoped<ICartRepo, CartRepo>(x => new CartRepo(new DesignTimeDbContextFactory()));
 
             
 

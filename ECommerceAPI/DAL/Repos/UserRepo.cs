@@ -1,11 +1,14 @@
 ﻿using ECommerceAPI.BL.Interfaces;
 using ECommerceAPI.BL.Models;
 using Microsoft.EntityFrameworkCore.Design;
+using static ECommerceAPI.BL.Interfaces.IUserRepo;
 
 namespace ECommerceAPI.DAL.Repos
 {
     public class UserRepo : Repo<User>, IUserRepo
     {
+        public event UserCreatedEventHandler UserCreated;
+
         public UserRepo(IDesignTimeDbContextFactory<ApplicationDbContext> dbContextFactory) : base(dbContextFactory)
         {
         }
@@ -23,6 +26,16 @@ namespace ECommerceAPI.DAL.Repos
 
                 throw ex;
             }
+        }
+
+        public async Task<bool> CreateAsync(User user)
+        {
+            var result = await base.CreateAsync(user);
+            if (result == true)
+            {
+                UserCreated?.Invoke(user);
+            }
+            return result;
         }
     }
 }

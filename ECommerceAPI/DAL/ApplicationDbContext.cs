@@ -21,7 +21,6 @@ namespace ECommerceAPI.DAL
         public DbSet<User> Users { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<Category> Category { get; set; }
@@ -30,5 +29,7 @@ namespace ECommerceAPI.DAL
         public DbSet<CartProducts> CartProducts { get; set; }
         public DbSet<OrderProducts> OrderProducts { get; set; }
         public DbSet<Cart> Cart { get; set; }
+        public DbSet<ShipmentDetails> ShipmentDetails { get; set; }
+        public DbSet<PaymentDetails> PaymentDetails { get; set; }
     }
 }

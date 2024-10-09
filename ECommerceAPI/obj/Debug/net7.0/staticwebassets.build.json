@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nZ6NzK4zgtjodH35BZjkH+ach5SRrUNkibOO6GO1zXg=",
+  "Hash": "0WseWl6y7hBCvtZ6mJZHP9nBAJx6l6bV00AdC2aHP+w=",
   "Source": "ECommerceAPI",
   "BasePath": "_content/ECommerceAPI",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "E:\\Marwan\\After Graduation\\Projects\\ECommerceAPI\\ECommerceAPI\\wwwroot\\Products\\0c410011-290f-4894-968b-27f6582d8d77.png",
+      "SourceId": "ECommerceAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Marwan\\After Graduation\\Projects\\ECommerceAPI\\ECommerceAPI\\wwwroot\\",
+      "BasePath": "_content/ECommerceAPI",
+      "RelativePath": "Products/0c410011-290f-4894-968b-27f6582d8d77.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Products\\0c410011-290f-4894-968b-27f6582d8d77.png"
+    },
     {
       "Identity": "E:\\Marwan\\After Graduation\\Projects\\ECommerceAPI\\ECommerceAPI\\wwwroot\\Products\\8ae636c8-2c95-40e6-b472-5f98a2fc455b.jpg",
       "SourceId": "ECommerceAPI",

@@ -42,7 +42,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Brand", (string)null);
+                    b.ToTable("Brand");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Cart", b =>
@@ -57,7 +57,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Cart", (string)null);
+                    b.ToTable("Cart");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.CartProducts", b =>
@@ -78,7 +78,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartProducts", (string)null);
+                    b.ToTable("CartProducts");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Category", b =>
@@ -101,25 +101,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("AdminId");
 
-                    b.ToTable("Category", (string)null);
-                });
-
-            modelBuilder.Entity("ECommerceAPI.BL.Models.CreditCard", b =>
-                {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Name");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CreditCards", (string)null);
+                    b.ToTable("Category");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Order", b =>
@@ -137,11 +119,14 @@ namespace ECommerceAPI.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.OrderProducts", b =>
@@ -159,7 +144,20 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderProducts", (string)null);
+                    b.ToTable("OrderProducts");
+                });
+
+            modelBuilder.Entity("ECommerceAPI.BL.Models.PaymentDetails", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("PaymentMethod")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("PaymentDetails");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Product", b =>
@@ -188,6 +186,9 @@ namespace ECommerceAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdminId");
@@ -196,7 +197,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Role", b =>
@@ -212,7 +213,27 @@ namespace ECommerceAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("ECommerceAPI.BL.Models.ShipmentDetails", b =>
+                {
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("AddressInDetails")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FloorNumber")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StreetNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("ShipmentDetails");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.User", b =>
@@ -241,7 +262,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
@@ -260,7 +281,7 @@ namespace ECommerceAPI.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Admin", b =>
@@ -314,17 +335,6 @@ namespace ECommerceAPI.Migrations
                     b.Navigation("Admin");
                 });
 
-            modelBuilder.Entity("ECommerceAPI.BL.Models.CreditCard", b =>
-                {
-                    b.HasOne("ECommerceAPI.BL.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("ECommerceAPI.BL.Models.Order", b =>
                 {
                     b.HasOne("ECommerceAPI.BL.Models.User", "User")
@@ -345,6 +355,17 @@ namespace ECommerceAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ECommerceAPI.BL.Models.PaymentDetails", b =>
+                {
+                    b.HasOne("ECommerceAPI.BL.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.Product", b =>
@@ -372,6 +393,17 @@ namespace ECommerceAPI.Migrations
                     b.Navigation("Brand");
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("ECommerceAPI.BL.Models.ShipmentDetails", b =>
+                {
+                    b.HasOne("ECommerceAPI.BL.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("ECommerceAPI.BL.Models.UserRole", b =>

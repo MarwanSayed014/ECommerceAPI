@@ -20,5 +20,6 @@ namespace ECommerceAPI.BL.Models
         public virtual Brand Brand { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ImageName { get; set; }
+        public decimal Price { get; set; }
     }
 }

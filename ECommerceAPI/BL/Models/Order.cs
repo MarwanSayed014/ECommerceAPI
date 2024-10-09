@@ -1,4 +1,5 @@
 ﻿using ECommerceAPI.BL.Interfaces;
+using ECommerceAPI.BL.Types;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,6 @@ namespace ECommerceAPI.BL.Models
 
         public decimal Total { get; set; }
         public DateTime CreatedDate { get; set; }
+        public OrderStatus status { get; set; }
     }
 }
